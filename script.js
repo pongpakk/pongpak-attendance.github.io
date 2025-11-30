@@ -60,12 +60,19 @@ function downloadPDF() {
     }
 
     const opt = {
-        margin: 10,
+        margin: [10, 10, 10, 10],
         filename: 'attendance.pdf',
-        image: { type: 'jpeg', quality: 1.0 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        image: { type: 'jpeg', quality: 1 },
+        html2canvas: { 
+            scale: 1.3,
+            useCORS: true
+        },
+        jsPDF: { 
+            unit: 'mm',
+            format: 'a4',
+            orientation: 'portrait'
+        }
     };
 
-    html2pdf().set(opt).from(table).save();
+    html2pdf().from(table).set(opt).save();
 }
