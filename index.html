@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>แยกข้อความเช็กชื่ออัตโนมัติ</title>
+    <title>ระบบแยกข้อความเช็กชื่ออัตโนมัติ</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <h1>📋 ระบบแยกข้อความเช็กชื่ออัตโนมัติ</h1>
 
 <div class="input-box">
     <label>วางข้อความดิบที่นี่</label>
+
     <textarea id="rawText" placeholder="ตัวอย่าง:
 1 1 ธันวาคม 2568 01:15 น. 6704001889 Chokrak pongpakchokrak@gmail.com -
 2 1 ธันวาคม 2568 01:17 น. 6704001890 Lalita lalitaaa.180@gmail.com -"></textarea>
@@ -19,6 +21,7 @@
     <button onclick="processData()">แยกข้อมูล</button>
     <button onclick="downloadPDF()">ดาวน์โหลด PDF</button>
 </div>
+
 
 <table id="resultTable">
     <thead>
@@ -35,10 +38,11 @@
     <tbody></tbody>
 </table>
 
+
 <script src="script.js"></script>
 
+<!-- สำคัญ! ไลบรารีสำหรับทำ PDF -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 </body>
 </html>
-
