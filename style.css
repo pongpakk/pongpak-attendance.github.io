@@ -1,74 +1,50 @@
-body {
-    font-family: sans-serif;
-    background: #eef3ff;
-    padding: 20px;
-    max-width: 900px;
-    margin: auto;
-}
+function processData() {
+    const raw = document.getElementById("rawText").value.trim();
+    const lines = raw.split("\n");
 
-h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
+    const tableBody = document.querySelector("#resultTable tbody");
+    tableBody.innerHTML = "";
 
-textarea {
-    width: 100%;
-    height: 180px;
-    font-size: 16px;
-    padding: 12px;
-    border-radius: 8px;
-    border: 2px solid #b7c7ff;
-}
+    lines.forEach(line => {
+        const parts = line.trim().split(/\s+/);
 
-.button-group {
-    margin-top: 15px;
-}
+        // ถ้าแยกได้ข้อมูลครบตามตำแหน่ง
+        if (parts.length >= 7) {
+            const no = parts[0];
+            const day = parts[1];
+            const month = parts[2];
+            const year = parts[3];
+            const time = parts[4] + " " + parts[5]; // เช่น "01:15 น."
 
-button {
-    font-size: 18px;
-    padding: 10px 16px;
-    margin-right: 10px;
-    border: none;
-    border-radius: 8px;
-    color: white;
-    background-color: #006eff;
-    cursor: pointer;
-}
+            const id = parts[6];
 
-button:active {
-    opacity: 0.8;
-}
+            // ส่วนที่เหลือคือ ชื่อ + อีเมล + หมายเหตุ
+            let name = "";
+            let email = "";
+            let note = "-";
 
-.table-container {
-    margin-top: 25px;
-    overflow-x: auto;
-}
+            const rest = parts.slice(7);
+            rest.forEach(p => {
+                if (p.includes("@")) {
+                    email = p;
+                } else if (p === "-") {
+                    note = p;
+                } else {
+                    name += (name ? " " : "") + p;
+                }
+            });
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
-}
+            const date = `${day} ${month} ${year}`;
 
-th, td {
-    border: 1px solid #333;
-    padding: 10px;
-    text-align: center;
-    white-space: nowrap;
-}
+            // ใส่ข้อมูลลงตาราง
+            const tr = document.createElement("tr");
+            [no, date, time, id, name, email, note].forEach(val => {
+                const td = document.createElement("td");
+                td.textContent = val;
+                tr.appendChild(td);
+            });
 
-th {
-    background: #d7dfff;
-    font-weight: bold;
-}
-
-#resultTable {
-    width: 100%;
-    table-layout: fixed;
-}
-
-#resultTable th, 
-#resultTable td {
-    word-wrap: break-word;
-    font-size: 14px;
+            tableBody.appendChild(tr);
+        }
+    });
 }
