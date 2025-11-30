@@ -3,24 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ระบบแยกข้อความเช็กชื่อ</title>
+    <title>แยกข้อความเช็กชื่ออัตโนมัติ</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
 </head>
 <body>
 
-    <h2>ระบบแยกข้อความเช็กชื่ออัตโนมัติ</h2>
+<h1>📋 ระบบแยกข้อความเช็กชื่ออัตโนมัติ</h1>
 
-    <textarea id="rawInput" placeholder="วางข้อความดิบที่นี่..."></textarea>
+<div class="input-box">
+    <label>วางข้อความดิบที่นี่</label>
+    <textarea id="rawText" placeholder="ตัวอย่าง:
+1 1 ธันวาคม 2568 01:15 น. 6704001889 Chokrak pongpakchokrak@gmail.com -
+2 1 ธันวาคม 2568 01:17 น. 6704001890 Lalita lalitaaa.180@gmail.com -"></textarea>
 
-    <div class="button-group">
-        <button onclick="processData()">แยกข้อมูล</button>
-        <button onclick="clearData()">ล้างข้อมูล</button>
-        <button onclick="downloadPDF()">ดาวน์โหลดเป็น PDF</button>
-    </div>
+    <button onclick="processData()">แยกข้อมูล</button>
+</div>
 
-    <div id="tableArea" class="table-container"></div>
+<table id="resultTable">
+    <thead>
+        <tr>
+            <th>ลำดับ</th>
+            <th>วันที่</th>
+            <th>เวลา</th>
+            <th>รหัสนักศึกษา</th>
+            <th>ชื่อ-นามสกุล</th>
+            <th>อีเมล</th>
+            <th>หมายเหตุ</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
 
-    <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
