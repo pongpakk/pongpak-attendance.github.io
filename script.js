@@ -31,6 +31,11 @@ button {
     border-radius: 6px;
 }
 
+button + button {
+    margin-left: 10px;
+    background: #28a745;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
