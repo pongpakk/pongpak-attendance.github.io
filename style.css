@@ -61,3 +61,14 @@ th {
     background: #d7dfff;
     font-weight: bold;
 }
+
+#resultTable {
+    width: 100%;
+    table-layout: fixed;
+}
+
+#resultTable th, 
+#resultTable td {
+    word-wrap: break-word;
+    font-size: 14px;
+}
