@@ -25,4 +25,44 @@ function processData() {
             rest.forEach(p => {
                 if (p.includes("@")) {
                     email = p;
-                } else if (p === "-")
+                } else if (p === "-") {
+                    note = p;
+                } else {
+                    name += (name ? " " : "") + p;
+                }
+            });
+
+            const date = `${day} ${month} ${year}`;
+
+            const tr = document.createElement("tr");
+            [no, date, time, id, name, email, note].forEach(val => {
+                const td = document.createElement("td");
+                td.textContent = val;
+                tr.appendChild(td);
+            });
+
+            tableBody.appendChild(tr);
+        }
+    });
+}
+
+
+
+// ฟังก์ชันดาวน์โหลด PDF
+function downloadPDF() {
+    const table = document.getElementById("resultTable");
+    if (!table || table.rows.length <= 1) {
+        alert("ไม่มีข้อมูลในตารางให้ดาวน์โหลดค่ะ");
+        return;
+    }
+
+    const opt = {
+        margin: [10, 10, 10, 10],
+        filename: 'attendance.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 1.5 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
+    html2pdf().set(opt).from(table).save();
+}
