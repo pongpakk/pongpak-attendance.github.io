@@ -8,17 +8,14 @@ function processData() {
     lines.forEach(line => {
         const parts = line.trim().split(/\s+/);
 
-        // ถ้าแยกได้ข้อมูลครบตามตำแหน่ง
         if (parts.length >= 7) {
             const no = parts[0];
             const day = parts[1];
             const month = parts[2];
             const year = parts[3];
-            const time = parts[4] + " " + parts[5]; // เช่น "01:15 น."
-
+            const time = parts[4] + " " + parts[5];
             const id = parts[6];
 
-            // ส่วนที่เหลือคือ ชื่อ + อีเมล + หมายเหตุ
             let name = "";
             let email = "";
             let note = "-";
@@ -36,7 +33,6 @@ function processData() {
 
             const date = `${day} ${month} ${year}`;
 
-            // ใส่ข้อมูลลงตาราง
             const tr = document.createElement("tr");
             [no, date, time, id, name, email, note].forEach(val => {
                 const td = document.createElement("td");
@@ -47,4 +43,24 @@ function processData() {
             tableBody.appendChild(tr);
         }
     });
+}
+
+
+
+function downloadPDF() {
+    const table = document.getElementById("resultTable");
+    if (!table || table.rows.length <= 1) {
+        alert("ไม่มีข้อมูลในตารางให้ดาวน์โหลดค่ะ");
+        return;
+    }
+
+    const opt = {
+        margin: [10, 10, 10, 10],
+        filename: 'attendance.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 1.5, useCORS: true },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
+    html2pdf().set(opt).from(table).save();
 }
