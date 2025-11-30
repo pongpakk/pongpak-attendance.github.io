@@ -1,48 +1,68 @@
-<!DOCTYPE html>
-<html lang="th">
-<head>
-    <meta charset="UTF-8">
-    <meta nameviewport="width=device-width, initial-scale=1.0">
-    <title>ระบบแยกข้อความเช็กชื่อ</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+// ฟังก์ชันแยกข้อมูล
+function processData() {
+    const raw = document.getElementById("rawText").value.trim();
+    const lines = raw.split("\n");
 
-<body>
+    const tableBody = document.querySelector("#resultTable tbody");
+    tableBody.innerHTML = "";
 
-<h1>📋 ระบบแยกข้อความเช็กชื่ออัตโนมัติ</h1>
+    lines.forEach(line => {
+        const parts = line.trim().split(/\s+/);
 
-<div class="input-box">
-    <label>วางข้อความดิบที่นี่</label>
+        if (parts.length >= 7) {
+            const no = parts[0];
+            const day = parts[1];
+            const month = parts[2];
+            const year = parts[3];
+            const time = parts[4] + " " + parts[5];
+            const id = parts[6];
 
-    <textarea id="rawText" placeholder="ตัวอย่าง:
-1 1 ธันวาคม 2568 01:15 น. 6704001889 Chokrak pongpakchokrak@gmail.com -
-2 1 ธันวาคม 2568 01:17 น. 6704001890 Lalita lalitaaa.180@gmail.com -"></textarea>
+            let name = "";
+            let email = "";
+            let note = "-";
 
-    <button onclick="processData()">แยกข้อมูล</button>
-    <button onclick="downloadPDF()">ดาวน์โหลด PDF</button>
-</div>
+            const rest = parts.slice(7);
+            rest.forEach(p => {
+                if (p.includes("@")) {
+                    email = p;
+                } else if (p === "-") {
+                    note = p;
+                } else {
+                    name += (name ? " " : "") + p;
+                }
+            });
 
-<table id="resultTable">
-    <thead>
-        <tr>
-            <th>ลำดับ</th>
-            <th>วันที่</th>
-            <th>เวลา</th>
-            <th>รหัสนักศึกษา</th>
-            <th>ชื่อ-นามสกุล</th>
-            <th>อีเมล</th>
-            <th>หมายเหตุ</th>
-        </tr>
-    </thead>
-    <tbody></tbody>
-</table>
+            const date = `${day} ${month} ${year}`;
 
-<!-- เรียกไฟล์ JS -->
-<script src="script.js"></script>
+            const tr = document.createElement("tr");
+            [no, date, time, id, name, email, note].forEach(val => {
+                const td = document.createElement("td");
+                td.textContent = val;
+                tr.appendChild(td);
+            });
 
-<!-- ไลบรารีสร้าง PDF -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+            tableBody.appendChild(tr);
+        }
+    });
+}
 
-</body>
-</html>
 
+
+// ฟังก์ชันดาวน์โหลด PDF
+function downloadPDF() {
+    const table = document.getElementById("resultTable");
+    if (!table || table.rows.length <= 1) {
+        alert("ไม่มีข้อมูลในตารางให้ดาวน์โหลดค่ะ");
+        return;
+    }
+
+    const opt = {
+        margin: [10, 10, 10, 10],
+        filename: 'attendance.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 1.5 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
+    html2pdf().set(opt).from(table).save();
+}
