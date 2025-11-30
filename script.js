@@ -1,78 +1,48 @@
-function processData() {
-    const raw = document.getElementById("rawInput").value.trim();
-    if (!raw) {
-        alert("กรุณาวางข้อความก่อนค่ะ");
-        return;
-    }
-
-    const lines = raw.split("\n");
-    let html = `
-        <table id="resultTable">
-            <tr>
-                <th>ลำดับ</th>
-                <th>วันที่</th>
-                <th>เวลา</th>
-                <th>รหัสนักศึกษา</th>
-                <th>ชื่อ-นามสกุล</th>
-                <th>อีเมล</th>
-                <th>หมายเหตุ</th>
-            </tr>
-    `;
-
-    lines.forEach(line => {
-        const parts = line.trim().split(/\s+/);
-
-        let order = parts[0] || "";
-        let date = `${parts[1]} ${parts[2]} ${parts[3]}`;
-        let time = `${parts[4]} ${parts[5]}`;
-        let studentId = parts[6] || "";
-        let name = parts[7] || "";
-        let email = parts[8] || "";
-        let note = parts[9] || "-";
-
-        html += `
-            <tr>
-                <td>${order}</td>
-                <td>${date}</td>
-                <td>${time}</td>
-                <td>${studentId}</td>
-                <td>${name}</td>
-                <td>${email}</td>
-                <td>${note}</td>
-            </tr>
-        `;
-    });
-
-    html += `</table>`;
-    document.getElementById("tableArea").innerHTML = html;
+body {
+    font-family: "Bai Jamjuree", sans-serif;
+    background: #f7f9fb;
+    padding: 30px;
 }
 
-function clearData() {
-    document.getElementById("rawInput").value = "";
-    document.getElementById("tableArea").innerHTML = "";
+h1 {
+    color: #333;
+    margin-bottom: 20px;
 }
 
-function downloadPDF() {
-    const table = document.getElementById("resultTable");
-    if (!table) {
-        alert("ยังไม่มีตารางให้ดาวน์โหลดค่ะ");
-        return;
-    }
+.input-box {
+    margin-bottom: 20px;
+}
 
-    const opt = {
-        margin: [10, 10, 10, 10],
-        filename: 'attendance.pdf',
-        image: { type: 'jpeg', quality: 1 },
-        html2canvas: { 
-            scale: 1.3,
-            useCORS: true
-        },
-        jsPDF: { 
-            unit: 'mm',
-            format: 'a4',
-            orientation: 'portrait'
-        }
-    };
+textarea {
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    font-size: 16px;
+}
 
-    html2pdf().from(table).set(opt).save();
+button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background: #4a7cff;
+    border: none;
+    color: #fff;
+    border-radius: 6px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+th {
+    background: #e4efff;
+    font-weight: bold;
 }
