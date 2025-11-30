@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบแยกข้อความเช็กชื่อ</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+
+    <h2>ระบบแยกข้อความเช็กชื่ออัตโนมัติ</h2>
+
+    <textarea id="rawInput" placeholder="วางข้อความดิบที่นี่..."></textarea>
+
+    <div class="button-group">
+        <button onclick="processData()">แยกข้อมูล</button>
+        <button onclick="clearData()">ล้างข้อมูล</button>
+        <button onclick="downloadPDF()">ดาวน์โหลดเป็น PDF</button>
+    </div>
+
+    <div id="tableArea" class="table-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
