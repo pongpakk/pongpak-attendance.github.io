@@ -5,11 +5,6 @@ body {
 }
 
 h1 {
-    color: #333;
-    margin-bottom: 20px;
-}
-
-.input-box {
     margin-bottom: 20px;
 }
 
@@ -17,17 +12,15 @@ textarea {
     width: 100%;
     height: 150px;
     padding: 10px;
-    font-size: 16px;
 }
 
 button {
-    margin-top: 10px;
     padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
+    margin-top: 10px;
     background: #4a7cff;
-    border: none;
     color: #fff;
+    border: none;
+    cursor: pointer;
     border-radius: 6px;
 }
 
@@ -38,16 +31,16 @@ button + button {
 
 table {
     width: 100%;
-    border-collapse: collapse;
     background: #fff;
+    border-collapse: collapse;
+    margin-top: 20px;
 }
 
 th, td {
-    padding: 10px;
     border: 1px solid #ccc;
+    padding: 8px;
 }
 
 th {
-    background: #e4efff;
-    font-weight: bold;
+    background: #e6f0ff;
 }
